@@ -1,0 +1,157 @@
+/* AIzaSyCPOMvJC-log9BcaEevoWE_MjkU--TwNs0 */
+
+.widget-main-wrapper {
+    .widget-header {
+        background: #296d98;
+        padding: 10px;
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .widget-content {
+        img {
+            width: 100%;
+        }
+
+        .battery-wrapper {
+            display: flex;
+            vertical-align: middle;
+            justify-content: center;
+            margin-top: 50px;
+
+            .battery-inner-wrapper {
+                position: relative;
+                width: 80px;
+
+                .battery-val {
+                    position: absolute;
+                    transform: rotate(90deg);
+                    right: -10px;
+                    top: 42%;
+                    font-size: 12px;
+                }
+            }
+
+        }
+
+        .antena-wrapper {
+            display: flex;
+            justify-content: space-around;
+
+            .antenas {
+                width: 20px;
+
+                img {
+                    width: 100%;
+                }
+
+            }
+
+            .antenas:nth-child(2) {
+                transform: rotate(45deg);
+            }
+
+            .antenas:nth-child(3) {
+                transform: rotate(-30deg);
+            }
+        }
+
+    }
+
+    .angular-position-main-wrapper {
+        display: flex;
+        justify-content: space-around;
+        padding: 10px;
+        margin-top: 40px;
+
+        .angular-position-wrapper {
+            text-align: center;
+        }
+
+       
+    }
+}
+
+.grid-stack-item-content {
+    box-shadow: 0px 0px 7px 1px rgb(0 0 0 / 20%);
+    background: #fff;
+    overflow: hidden;
+}
+
+.radar,
+.sweep {
+    position: absolute;
+}
+
+.radar {
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    margin: -117px;
+    width: 248px;
+    height: 248px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.5),
+        inset 0 0 0 1px hsla(0, 0%, 100%, 0.15);
+    background:
+        repeating-radial-gradient(transparent, transparent 23px, #287a33 25px, #287a33 27px),
+        linear-gradient(transparent 49.75%, #0e4c42 49.75%, #0e4c42 50.25%, transparent 50.25%) 50% no-repeat,
+        linear-gradient(90deg, transparent 49.75%, #0e4c42 49.75%, #0e4c42 50.25%, transparent 50.25%) 50% no-repeat,
+        linear-gradient(#ffffff, #ffffff);
+    background-size: 100%, 218px 218px, 218px 218px, 100%;
+}
+
+.sweep {
+    box-sizing: border-box;
+    top: 16px;
+    left: 16px;
+    border-right: solid 1px hsla(145, 50%, 40%, .3);
+    width: 108px;
+    height: 108px;
+    border-radius: 100% 0 0 0;
+    transform-origin: 100% 100%;
+    background: linear-gradient(50deg, rgba(34, 34, 34, 0) 56%, hsla(145, 50%, 40%, 1));
+    animation: sweep 5s infinite linear;
+}
+
+@keyframes sweep {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+@mixin on-circle($item-count, $circle-size, $item-size) {
+  position: relative;
+  width:  $circle-size;
+  height: $circle-size;
+  padding: 0;
+  border-radius: 50%; 
+  list-style: none;       
+  
+  > * {
+    display: block;
+    position: absolute;
+    top:  50%; 
+    left: 50%;
+    width:  $item-size;
+    height: $item-size;
+    margin: -($item-size / 2);
+  
+    $angle: (360 / $item-count);
+    $rot: 0;
+
+    @for $i from 1 through $item-count {
+      &:nth-of-type(#{$i}) {
+        transform: 
+          rotate($rot * 1deg) 
+          translate($circle-size / 2) 
+          rotate($rot * -1deg);
+      }
+
+      $rot: $rot + $angle;
+    }
+  }
+}

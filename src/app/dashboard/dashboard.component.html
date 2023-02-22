@@ -1,0 +1,120 @@
+<div class="dashboard-main-wrapper">
+    <div class="dashboard-inner-wreppaer">
+        <div class="grid-stack">
+            <!-- using angular templating to create DOM, otherwise an easier way is to simply call grid.load(items) -->
+            <div *ngFor="let n of items; let i = index" class="grid-stack-item" [id]="n.id" [attr.gs-w]="n.w"
+                [attr.gs-h]="n.h" [attr.gs-x]="n.x" [attr.gs-y]="n.y" [attr.gs-id]="n.id">
+                <div class="grid-stack-item-content">
+                    <ng-container *ngIf="n.content === 'tower'">
+                        <div class="widget-main-wrapper">
+                            <div class="widget-header">Tower Details</div>
+                            <div class="widget-content">
+                                <img src="./../../assets/tower.jpg">
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="n.content === 'battery'">
+                        <div class="widget-main-wrapper">
+                            <div class="widget-header">Concell Charge Levels</div>
+                            <div class="widget-content">
+                                <div class="battery-wrapper">
+                                    <div class="battery-inner-wrapper">
+                                        <app-svg-battery [value]="batteryVal1"
+                                            [style.color]="batteryVal1>45?'green':batteryVal1>15?'DarkOrange':'red'">
+                                        </app-svg-battery>
+                                        <span class="battery-val">{{batteryVal1}}%</span>
+                                    </div>
+                                    <div class="battery-inner-wrapper">
+                                        <app-svg-battery [value]="batteryVal2"
+                                            [style.color]="batteryVal2>45?'green':batteryVal2>15?'DarkOrange':'red'">
+                                        </app-svg-battery>
+                                        <span class="battery-val">{{batteryVal2}}%</span>
+                                    </div>
+                                    <div class="battery-inner-wrapper">
+                                        <app-svg-battery [value]="batteryVal3"
+                                            [style.color]="batteryVal3>45?'green':batteryVal3>15?'DarkOrange':'red'">
+                                        </app-svg-battery>
+                                        <span class="battery-val">{{batteryVal3}}%</span>
+                                    </div>
+                                    <div class="battery-inner-wrapper">
+                                        <app-svg-battery [value]="batteryVal4"
+                                            [style.color]="batteryVal4>45?'green':batteryVal4>15?'DarkOrange':'red'">
+                                        </app-svg-battery>
+                                        <span class="battery-val">{{batteryVal4}}%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="n.content === 'angular-positions'">
+                        <div class="widget-main-wrapper">
+                            <div class="widget-header">Angular Positions</div>
+                            <div class="widget-content">
+                                <div class="angular-position-main-wrapper">
+                                    <app-agular-position [title]="'X Position'"></app-agular-position>
+                                    <app-agular-position [title]="'Y Position'"></app-agular-position>
+                                    <app-agular-position [title]="'Z Position'"></app-agular-position>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="n.content === 'sensor-positions'">
+                        <div class="widget-main-wrapper">
+                            <div class="widget-header">Installed Sensor Present Positions</div>
+                            <div class="widget-content">
+                                <div class="antena-wrapper">
+                                    <div class="antenas"><img src="../../assets/antena.png"></div>
+                                    <div class="antenas"><img src="../../assets/antena.png"></div>
+                                    <div class="antenas"><img src="../../assets/antena.png"></div>
+                                    <div class="antenas"><img src="../../assets/antena.png"></div>
+                                </div>
+                                <div class="chart-wrapper">
+                                    <div id="chart-container">
+                                        <!--   <canvas #myCanvas id="canvas" baseChart [chartType]="chartType" [datasets]="chartData" [labels]="chartLabels" [colors]="chartColors" [options]="chartOptions"></canvas> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="n.content === 'payloads'">
+                        <div class="widget-main-wrapper">
+                            <div class="widget-header">Packet Captureble payloads</div>
+                            <div class="widget-content">
+
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="n.content === 'topology'">
+                        <div class="widget-main-wrapper">
+                            <div class="widget-header">Topology View</div>
+                            <div class="widget-content">
+
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="n.content === 'location-sensor'">
+                        <div class="widget-main-wrapper">
+                            <div class="widget-header">Dashbaord Sensor Location Sensor</div>
+                            <div class="widget-content">
+                                <div class='radar'>
+                                    <div class='sweep'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="n.content === 'map-view'">
+                        <div class="widget-main-wrapper">
+                            <div class="widget-header">Map View</div>
+                            <div class="widget-content">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d243647.25176871577!2d78.40804555!3d17.4123487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1677092443002!5m2!1sen!2sin"
+                                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

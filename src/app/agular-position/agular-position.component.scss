@@ -1,0 +1,53 @@
+.angular-positions-circle {
+    width: 100px;
+    border: 2px solid;
+    height: 100px;
+    border-radius: 50%;
+    position: relative;
+    display: grid;
+    grid-template-areas: "layer";
+    place-items: center;
+    border-radius: 50%;
+  
+    --radius: 100px;
+
+    .position-mark {
+        grid-area: layer;
+        width: 3px;
+        height: 10px;
+        background: #000;
+        display: grid;
+        place-items: center;
+        font-weight: bold;
+        font-size: 3vmin;
+
+        // Decimal value, 0-1 based on the child's index.
+        --d: calc(var(--i) / var(--total));
+        // Offset to get better starting placement on the circle
+        --r-offset: -0.25turn;
+        // Full circle
+        --r-amount: 1turn;
+        // Rotation based on the decimal and r modifiers
+        --r: calc((var(--r-amount) * var(--d)) + var(--r-offset));
+        // Rotate, transform out, then negative rotation so the content appears upright
+        --transform: rotate(var(--r)) translate(var(--radius)) rotate(calc(-1 * var(--r)));
+
+        transform: var(--transform);
+        transition: transform 1.5s ease-in-out;
+        //transition-delay: calc(0.1s * var(--i));
+    }
+    .needle {
+        width: 40px;
+        position: absolute;
+        left: 43px;
+        top: 15px;
+        img {
+            width: 100%;
+        }
+    }
+    .position-title {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
+}
