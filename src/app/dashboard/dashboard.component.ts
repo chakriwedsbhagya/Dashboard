@@ -14,6 +14,7 @@ export class DashboardComponent {
   gmarkers = [];
   locationsList:any = [];
   isBigMap: boolean = false; 
+  selectedImage:any = 'currentimage1'
 
   mathPow = Math.pow;	
   unitVal = 111.19; // unit value convertion per KM	
@@ -28,6 +29,7 @@ export class DashboardComponent {
   public chartLabels: any[] | undefined;
   public chartColors: any[] | undefined;
   public chartOptions: any;
+  public currentPosition: any;
   
   gaugemap:any = {};
   batteryVal1 = 30;
@@ -35,27 +37,34 @@ export class DashboardComponent {
   batteryVal3 = 10;
   batteryVal4 = 90;
   items: GridStackWidget[] = [
-    { x: 0, y: 1, w: 2, h: 6, id: `grid-1` , content: 'tower'},
+    { x: 0, y: 1, w: 2, h: 5, id: `grid-1` , content: 'tower'},
     { x: 2, y: 2, w: 3, h: 4, id: `grid-2`, content: 'battery' },
     { x: 5, y: 3, w: 3, h: 4, id: `grid-3`, content: 'angular-positions' },
-    { x: 8, y: 3, w: 4, h: 5, id: `grid-4`, content: 'sensor-positions' },
-    { x: 2, y: 4, w: 6, h: 5, id: `grid-5`, content: 'payloads' },
+    { x: 8, y: 3, w: 4, h: 7, id: `grid-4`, content: 'sensor-positions' },
+    { x: 2, y: 4, w: 6, h: 4, id: `grid-5`, content: 'payloads' },
     { x: 8, y: 5, w: 4, h: 5, id: `grid-6`, content: 'topology' },
     { x: 2, y: 7, w: 6, h: 5, id: `grid-7`, content: 'location-sensor' },
     { x: 0, y: 6, w: 2, h: 4, id: `grid-8`, content: 'map-view' },
     { x: 8, y: 10, w: 4, h: 4, id: `grid-9`, content: 'geometric-view' },
+    
   ];
+  //
   currentImage: string = '';
   images: string[] = ['tower-1.png', 'tower-2.png', 'tower-3.png'];
   currentIndex: number = 0;
+  currentChart: string = '';
   private grid!: GridStack;
-
+  public angleDirection = "X Position";
+  selectePacketImg: string = `../../assets/packet0.png`;
+  selectedGeo: string = `../../assets/geo-1.jpg`;
+  selectedTopoImg: string = `../../assets/topo1.jpg`
   constructor() {}
 
   ngOnInit() {
     this.currentImage = `../../assets/tower-1.png`
+    this.currentPosition = `../../assets/position0.png`
+    this.currentChart = `../../assets/chart0.png`
     this.generateChart()
-    this.loadImages();
   }
   onImageClick() {
     this.currentIndex++;
@@ -63,9 +72,25 @@ export class DashboardComponent {
       this.currentIndex = 0;
     }
     this.currentImage = `../../assets/${this.images[this.currentIndex]}`;
+    console.log("index", this.currentIndex);
+    this.updatePositions()
   }
-  loadImages() {
-    
+  updatePositions() {
+    if(this.currentIndex === 0) {
+      this.batteryVal1 = 30;
+      this.angleDirection = 'X Position';
+    } else if(this.currentIndex === 1) {
+      this.batteryVal1 = 90;
+      this.angleDirection = 'Y Position';
+    } else if(this.currentIndex === 2) {
+      this.batteryVal1 = 10;
+      this.angleDirection = 'Z Position';
+    }
+    this.currentPosition = `assets/position${this.currentIndex}.png`;
+    this.currentChart = `assets/chart${this.currentIndex}.png`;
+    this.selectePacketImg = `assets/packet${this.currentIndex}.png`;
+    this.selectedGeo = `assets/geo-${this.currentIndex + 1}.jpg`;
+    this.selectedTopoImg = `assets/topo${this.currentIndex + 1}.jpg`;
   }
   generateChart() {
     this.chartData = [{

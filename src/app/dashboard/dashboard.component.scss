@@ -35,11 +35,15 @@
             }
 
         }
-        
+
 
         .antena-wrapper {
             display: flex;
-            justify-content: space-around;
+    justify-content: center;
+    /* width: 310px; */
+    margin: auto;
+    /* margin-top: 40px; */
+    padding: 10px;
 
             .antenas {
                 width: 20px;
@@ -71,7 +75,7 @@
             text-align: center;
         }
 
-       
+
     }
 }
 
@@ -85,11 +89,13 @@
 .sweep {
     position: absolute;
 }
+
 .rader-wrapper {
     display: table;
     margin: auto;
     width: 248px;
     height: 248px;
+
     .blue-tooth img {
         width: 22px !important;
         position: absolute;
@@ -98,6 +104,7 @@
         transform: translate(-50%, -50%);
     }
 }
+
 .radar {
     overflow: hidden;
     top: 50%;
@@ -128,24 +135,28 @@
     background: linear-gradient(50deg, rgba(34, 34, 34, 0) 56%, hsla(145, 50%, 40%, 1));
     animation: sweep 5s infinite linear;
 }
+
 .spot1 {
     position: absolute;
     width: 16px;
     left: 56%;
     top: 93px;
 }
+
 .spot2 {
     position: absolute;
     width: 16px;
     left: 46%;
     top: 260px;
 }
+
 .spot3 {
     position: absolute;
     width: 16px;
     left: 40%;
     top: 120px;
 }
+
 .spot4 {
     position: absolute;
     width: 16px;
@@ -166,15 +177,34 @@
     left: 40%;
     top: 186px;
 }
+
 .geometric-wrapper {
-    width: 38%;
-    margin: 0 auto;
+    width: 62%;
+    margin: 30px auto;
 }
+
 .street-view-wrapper {
     display: flex;
     position: absolute;
     bottom: 0;
 }
+.chart-wrapper {
+    min-height: 90px;
+}
+table {
+    background: yellow;
+    border: 1px solid #000;
+    border-collapse: collapse;
+    th{
+        border: 1px solid #000;
+        padding: 5px 10px;
+    }
+    td {
+        border: 1px solid #000;
+        padding: 5px 10px;
+    }
+
+} 
 @keyframes sweep {
     to {
         transform: rotate(360deg);
@@ -183,36 +213,34 @@
 
 
 @mixin on-circle($item-count, $circle-size, $item-size) {
-  position: relative;
-  width:  $circle-size;
-  height: $circle-size;
-  padding: 0;
-  border-radius: 50%; 
-  list-style: none;       
-  
-  > * {
-    display: block;
-    position: absolute;
-    top:  50%; 
-    left: 50%;
-    width:  $item-size;
-    height: $item-size;
-    margin: -($item-size / 2);
-  
-    $angle: (360 / $item-count);
-    $rot: 0;
+    position: relative;
+    width: $circle-size;
+    height: $circle-size;
+    padding: 0;
+    border-radius: 50%;
+    list-style: none;
 
-    @for $i from 1 through $item-count {
-      &:nth-of-type(#{$i}) {
-        transform: 
-          rotate($rot * 1deg) 
-          translate($circle-size / 2) 
-          rotate($rot * -1deg);
-      }
+    >* {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: $item-size;
+        height: $item-size;
+        margin: -($item-size / 2);
 
-      $rot: $rot + $angle;
+        $angle: (360 / $item-count);
+        $rot: 0;
+
+        @for $i from 1 through $item-count {
+            &:nth-of-type(#{$i}) {
+                transform:
+                    rotate($rot * 1deg) translate($circle-size / 2) rotate($rot * -1deg);
+            }
+
+            $rot: $rot + $angle;
+        }
     }
-  }
 }
 
 .card {
@@ -221,6 +249,7 @@
     height: 230px;
     display: flex;
     flex-direction: column;
+
     span {
         position: absolute;
         top: 0;
@@ -229,7 +258,7 @@
         height: 100%;
 
     }
- 
+
     img {
         position: absolute;
         top: 0;
@@ -240,12 +269,51 @@
         opacity: 0;
         pointer-events: none;
     }
-   
+
 }
+
 .card img:nth-child(2),
-.card span:hover + img{
+.card span:hover+img {
     opacity: 1;
 }
+
 .image-rotate-wrapper {
-    margin-top: -30px;
+    margin: 10px auto 0;
+    width: 70%;
+}
+
+.image-rotate-icon {
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+@keyframes blinker {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.blink {
+    text-decoration: blink;
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 0.6s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-direction: alternate;
+    animation-name: blinker;
+}
+
+.antena-wrapper {
+    
+}
+.chart-table {
+    display: table;
+    margin: 10px auto;
 }

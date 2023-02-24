@@ -57,3 +57,17 @@
     justify-content: center;
     margin-top: 10px;
 }
+.position-1.angular-positions-circle .needle {
+    width: 40px;
+    position: absolute;
+    transform: rotate(95deg);
+    left: 40px;
+    top: 47px;
+}
+.position-2.angular-positions-circle .needle {
+    width: 40px;
+    position: absolute;
+    transform: rotate(180deg);
+    left: 13px;
+    top: 41px;
+}

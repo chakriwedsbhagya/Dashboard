@@ -7,28 +7,31 @@
                 <div class="grid-stack-item-content">
                     <ng-container *ngIf="n.content === 'tower'">
                         <div class="widget-main-wrapper">
-                            <div class="widget-header">Tower Details</div>
+                            <div class="widget-header">Antenna Positioning</div>
                             <div class="widget-content">
                                 <div class="image-rotate-wrapper">
                                     <!-- <img src="assets/tower.jpg"> -->
-                                    <img [src]="currentImage" (click)="onImageClick()" useMap="#image-map">
-                                    <map name="image-map">
+                                    <img [src]="currentImage" useMap="#image-map">
+                                    <!--       <map name="image-map">
                                         <area coords="29,130,65,260" shape="rect" (mouseenter)="onAreaHover('area1')" (mouseleave)="mouseLeave()">
                                         <area coords="185,222,226,77" shape="rect" (mouseenter)="onAreaHover('area3')" (mouseleave)="mouseLeave()">
-                                    </map>
+                                    </map> -->
+                                    <span class="image-rotate-icon"><img src="assets/360-view.png"
+                                            (click)="onImageClick()"></span>
+
                                 </div>
-                                <div class="street-view-wrapper">
+                               <!--  <div class="street-view-wrapper">
                                     <img src="../../assets/street-view.png">
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </ng-container>
                     <ng-container *ngIf="n.content === 'battery'">
                         <div class="widget-main-wrapper">
-                            <div class="widget-header">Concell Charge Levels</div>
+                            <div class="widget-header">Rechargeable Battery Percentage</div>
                             <div class="widget-content">
                                 <div class="battery-wrapper">
-                                    <div class="battery-inner-wrapper">
+                                    <div class="battery-inner-wrapper" [class.blink]="batteryVal1 <= 10">
                                         <app-svg-battery [value]="batteryVal1"
                                             [style.color]="batteryVal1>45?'green':batteryVal1>15?'DarkOrange':'red'">
                                         </app-svg-battery>
@@ -41,10 +44,10 @@
                     </ng-container>
                     <ng-container *ngIf="n.content === 'angular-positions'">
                         <div class="widget-main-wrapper">
-                            <div class="widget-header">Angular Positions</div>
+                            <div class="widget-header">Angular Orientation</div>
                             <div class="widget-content">
-                                <div class="angular-position-main-wrapper">
-                                    <app-agular-position [title]="'X Position'"></app-agular-position>
+                                <div class="angular-position-main-wrapper" >
+                                    <app-agular-position [title]="angleDirection" [currentIndex]="currentIndex"></app-agular-position>
                                     <!--  <app-agular-position [title]="'Y Position'"></app-agular-position>
                                     <app-agular-position [title]="'Z Position'"></app-agular-position> -->
                                 </div>
@@ -53,17 +56,118 @@
                     </ng-container>
                     <ng-container *ngIf="n.content === 'sensor-positions'">
                         <div class="widget-main-wrapper">
-                            <div class="widget-header">Installed Sensor Present Positions</div>
+                            <div class="widget-header">Set Point Azimuth Deviation</div>
                             <div class="widget-content">
                                 <div class="antena-wrapper">
-                                    <img src="assets/sensor-positions.png">
-                                    <!--   <div class="antenas"><img src="../../assets/antena.png"></div>
+                                    <div class="antena-info-wrapper">
+                                        <img src="assets/tower-info.jpg">
+                                    </div>
+                                    <div class="antena-wrapper">
+                                        <img [src]="currentPosition">
+                                        <!--   <div class="antenas"><img src="../../assets/antena.png"></div>
                                     <div class="antenas"><img src="../../assets/antena.png"></div>
                                     <div class="antenas"><img src="../../assets/antena.png"></div>
                                     <div class="antenas"><img src="../../assets/antena.png"></div> -->
+                                    </div>
                                 </div>
                                 <div class="chart-wrapper">
                                     <div id="chart-container">
+                                        <div class="chart-wrapper">
+                                            <img [src]="currentChart">
+                                        </div>
+                                        <div class="chart-table">
+                                            <table *ngIf="currentIndex === 0">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>MEASURED</th>
+                                                        <th>TARGET</th>
+                                                        <th>DIFFERENCE</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Azimuth (True)</td>
+                                                        <td>227.2<sup>o</sup></td>
+                                                        <td>227<sup>o</sup></td>
+                                                        <td>0.2</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tilt</td>
+                                                        <td>1.0<sup>o</sup></td>
+                                                        <td>0.0<sup>o</sup></td>
+                                                        <td>1.0</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Roll</td>
+                                                        <td>1.0<sup>o</sup></td>
+                                                        <td>0.0<sup>o</sup></td>
+                                                        <td>1.0</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <table *ngIf="currentIndex === 1">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>MEASURED</th>
+                                                        <th>TARGET</th>
+                                                        <th>DIFFERENCE</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Azimuth (True)</td>
+                                                        <td>225.1<sup>o</sup></td>
+                                                        <td>225<sup>o</sup></td>
+                                                        <td>0.1</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tilt</td>
+                                                        <td>1.2<sup>o</sup></td>
+                                                        <td>1.0<sup>o</sup></td>
+                                                        <td>1.0</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Roll</td>
+                                                        <td>1.8<sup>o</sup></td>
+                                                        <td>0.8<sup>o</sup></td>
+                                                        <td>1.0</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <table *ngIf="currentIndex === 2">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>MEASURED</th>
+                                                        <th>TARGET</th>
+                                                        <th>DIFFERENCE</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Azimuth (True)</td>
+                                                        <td>224.4<sup>o</sup></td>
+                                                        <td>224<sup>o</sup></td>
+                                                        <td>0.4</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tilt</td>
+                                                        <td>1.1<sup>o</sup></td>
+                                                        <td>0.5<sup>o</sup></td>
+                                                        <td>0.6</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Roll</td>
+                                                        <td>1.5<sup>o</sup></td>
+                                                        <td>0.3<sup>o</sup></td>
+                                                        <td>1.2</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <!-- <img src="assets/table.jpg"> -->
+                                        </div>
                                         <!--   <canvas #myCanvas id="canvas" baseChart [chartType]="chartType" [datasets]="chartData" [labels]="chartLabels" [colors]="chartColors" [options]="chartOptions"></canvas> -->
                                     </div>
                                 </div>
@@ -72,9 +176,9 @@
                     </ng-container>
                     <ng-container *ngIf="n.content === 'payloads'">
                         <div class="widget-main-wrapper">
-                            <div class="widget-header">Packet Captureble payloads</div>
+                            <div class="widget-header">Packet Capture</div>
                             <div class="widget-content">
-                                <img src="assets/grid.jpg">
+                                <img [src]="selectePacketImg">
                             </div>
                         </div>
                     </ng-container>
@@ -82,13 +186,14 @@
                         <div class="widget-main-wrapper">
                             <div class="widget-header">Topology View</div>
                             <div class="widget-content">
-                                <img src="assets/topograpy.png">
+
+                                <img [src]="selectedTopoImg">
                             </div>
                         </div>
                     </ng-container>
                     <ng-container *ngIf="n.content === 'location-sensor'">
                         <div class="widget-main-wrapper">
-                            <div class="widget-header">Dashbaord Sensor Location Sensor</div>
+                            <div class="widget-header">24/7 Periodic Antenna Alignment Scanner</div>
                             <div class="widget-content">
                                 <div class="rader-wrapper">
                                     <div class='radar'>
@@ -122,7 +227,7 @@
                             <div class="widget-header">Geometric View</div>
                             <div class="widget-content">
                                 <div class="geometric-wrapper">
-                                    <img src="assets/geometric-2.png">
+                                    <img [src]="selectedGeo">
                                 </div>
                             </div>
                         </div>
