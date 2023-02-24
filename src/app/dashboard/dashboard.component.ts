@@ -2,13 +2,23 @@ import { Component, ViewChild } from '@angular/core';
 import { GridStack, GridStackWidget } from 'gridstack';
 import * as d3 from 'd3';
 import 'chartjs-plugin-annotation';
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
+  map:any;
+  cords:any;
+  location: any;
+  gmarkers = [];
+  locationsList:any = [];
+  isBigMap: boolean = false; 
+
+  mathPow = Math.pow;	
+  unitVal = 111.19; // unit value convertion per KM	
+  limit = 10; // Refers 10KM radius	
+  radius = this.mathPow(this.unitVal/this.limit, 2);
 
     @ViewChild('myCanvas')
   public canvas: any;
@@ -29,20 +39,34 @@ export class DashboardComponent {
     { x: 2, y: 2, w: 3, h: 4, id: `grid-2`, content: 'battery' },
     { x: 5, y: 3, w: 3, h: 4, id: `grid-3`, content: 'angular-positions' },
     { x: 8, y: 3, w: 4, h: 5, id: `grid-4`, content: 'sensor-positions' },
-    { x: 2, y: 4, w: 6, h: 3, id: `grid-5`, content: 'payloads' },
-    { x: 8, y: 5, w: 4, h: 4, id: `grid-6`, content: 'topology' },
+    { x: 2, y: 4, w: 6, h: 5, id: `grid-5`, content: 'payloads' },
+    { x: 8, y: 5, w: 4, h: 5, id: `grid-6`, content: 'topology' },
     { x: 2, y: 7, w: 6, h: 5, id: `grid-7`, content: 'location-sensor' },
-    { x: 0, y: 6, w: 2, h: 3, id: `grid-8`, content: 'map-view' },
+    { x: 0, y: 6, w: 2, h: 4, id: `grid-8`, content: 'map-view' },
+    { x: 8, y: 10, w: 4, h: 4, id: `grid-9`, content: 'geometric-view' },
   ];
-
+  currentImage: string = '';
+  images: string[] = ['tower-1.png', 'tower-2.png', 'tower-3.png'];
+  currentIndex: number = 0;
   private grid!: GridStack;
 
   constructor() {}
 
   ngOnInit() {
+    this.currentImage = `../../assets/tower-1.png`
     this.generateChart()
+    this.loadImages();
   }
-
+  onImageClick() {
+    this.currentIndex++;
+    if (this.currentIndex >= this.images.length) {
+      this.currentIndex = 0;
+    }
+    this.currentImage = `../../assets/${this.images[this.currentIndex]}`;
+  }
+  loadImages() {
+    
+  }
   generateChart() {
     this.chartData = [{
       data: [3, 1, 4, 2, 5],
@@ -103,4 +127,17 @@ export class DashboardComponent {
       float: false,
     });
   }
+
+  onAreaHover(from: any) {
+    if(from === 'area1') {
+      this.batteryVal1 = 90;
+    } else if(from === 'area3') {
+      this.batteryVal1 = 50;
+    }
+    console.log({from})
+  }
+  mouseLeave() {
+    this.batteryVal1 = 30
+  }
+  
 }

@@ -2,7 +2,7 @@
 
 .widget-main-wrapper {
     .widget-header {
-        background: #296d98;
+        background: #dd5ac9;
         padding: 10px;
         color: #fff;
         font-size: 14px;
@@ -23,18 +23,19 @@
 
             .battery-inner-wrapper {
                 position: relative;
-                width: 80px;
+                width: 150px;
 
                 .battery-val {
                     position: absolute;
                     transform: rotate(90deg);
-                    right: -10px;
+                    right: 20px;
                     top: 42%;
                     font-size: 12px;
                 }
             }
 
         }
+        
 
         .antena-wrapper {
             display: flex;
@@ -84,7 +85,19 @@
 .sweep {
     position: absolute;
 }
-
+.rader-wrapper {
+    display: table;
+    margin: auto;
+    width: 248px;
+    height: 248px;
+    .blue-tooth img {
+        width: 22px !important;
+        position: absolute;
+        top: 52%;
+        left: 51%;
+        transform: translate(-50%, -50%);
+    }
+}
 .radar {
     overflow: hidden;
     top: 50%;
@@ -115,7 +128,53 @@
     background: linear-gradient(50deg, rgba(34, 34, 34, 0) 56%, hsla(145, 50%, 40%, 1));
     animation: sweep 5s infinite linear;
 }
+.spot1 {
+    position: absolute;
+    width: 16px;
+    left: 56%;
+    top: 93px;
+}
+.spot2 {
+    position: absolute;
+    width: 16px;
+    left: 46%;
+    top: 260px;
+}
+.spot3 {
+    position: absolute;
+    width: 16px;
+    left: 40%;
+    top: 120px;
+}
+.spot4 {
+    position: absolute;
+    width: 16px;
+    left: 56%;
+    top: 186px;
+}
 
+.spot5 {
+    position: absolute;
+    width: 16px;
+    left: 60%;
+    top: 186px;
+}
+
+.spot6 {
+    position: absolute;
+    width: 16px;
+    left: 40%;
+    top: 186px;
+}
+.geometric-wrapper {
+    width: 38%;
+    margin: 0 auto;
+}
+.street-view-wrapper {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+}
 @keyframes sweep {
     to {
         transform: rotate(360deg);
@@ -154,4 +213,39 @@
       $rot: $rot + $angle;
     }
   }
+}
+
+.card {
+    position: relative;
+    width: 130px;
+    height: 230px;
+    display: flex;
+    flex-direction: column;
+    span {
+        position: absolute;
+        top: 0;
+        left: calc(100% / 3 * var(--i));
+        width: calc(100% / 3);
+        height: 100%;
+
+    }
+ 
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        pointer-events: none;
+    }
+   
+}
+.card img:nth-child(2),
+.card span:hover + img{
+    opacity: 1;
+}
+.image-rotate-wrapper {
+    margin-top: -30px;
 }
