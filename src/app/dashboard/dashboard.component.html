@@ -2,25 +2,32 @@
     <div class="dashboard-inner-wreppaer">
         <div class="grid-stack">
             <!-- using angular templating to create DOM, otherwise an easier way is to simply call grid.load(items) -->
-            <div *ngFor="let n of items; let i = index" class="grid-stack-item" [id]="n.id" [attr.gs-w]="n.w"
+            <div *ngFor="let n of items; let i = index" class="grid-stack-item" data-gs-no-move="yes" [id]="n.id" [attr.gs-w]="n.w"
                 [attr.gs-h]="n.h" [attr.gs-x]="n.x" [attr.gs-y]="n.y" [attr.gs-id]="n.id">
-                <div class="grid-stack-item-content">
+                <div class="grid-stack-item-content" >
                     <ng-container *ngIf="n.content === 'tower'">
                         <div class="widget-main-wrapper">
-                            <div class="widget-header">Antenna Positioning</div>
+                            <div class="widget-header"><span class="title-icon"><img
+                                        src="assets/icons/antenna.png"></span> Positioning</div>
                             <div class="widget-content">
                                 <div class="image-rotate-wrapper">
                                     <!-- <img src="assets/tower.jpg"> -->
-                                    <img [src]="currentImage" useMap="#image-map">
+                                    <!-- <img [src]="currentImage" useMap="#image-map"> -->
                                     <!--       <map name="image-map">
                                         <area coords="29,130,65,260" shape="rect" (mouseenter)="onAreaHover('area1')" (mouseleave)="mouseLeave()">
                                         <area coords="185,222,226,77" shape="rect" (mouseenter)="onAreaHover('area3')" (mouseleave)="mouseLeave()">
                                     </map> -->
+                                    <div class="model-viewer-wrapper">
+                                        <model-viewer camera-controls [attr.camera-orbit]="cameraOrbit" [attr.src]="src"
+                                            alt="A 3D model of an astronaut" data-js-focus-visible=""
+                                            ar-status="not-presenting">
+                                        </model-viewer>
+                                    </div>
                                     <span class="image-rotate-icon"><img src="assets/360-view.png"
                                             (click)="onImageClick()"></span>
 
                                 </div>
-                               <!--  <div class="street-view-wrapper">
+                                <!--  <div class="street-view-wrapper">
                                     <img src="../../assets/street-view.png">
                                 </div> -->
                             </div>
@@ -28,7 +35,8 @@
                     </ng-container>
                     <ng-container *ngIf="n.content === 'battery'">
                         <div class="widget-main-wrapper">
-                            <div class="widget-header">Rechargeable Battery Percentage</div>
+                            <div class="widget-header"><span class="title-icon battery-icon"><img
+                                        src="assets/icons/battery.svg"></span>Rechargeable Battery Percentage</div>
                             <div class="widget-content">
                                 <div class="battery-wrapper">
                                     <div class="battery-inner-wrapper" [class.blink]="batteryVal1 <= 10">
@@ -44,10 +52,12 @@
                     </ng-container>
                     <ng-container *ngIf="n.content === 'angular-positions'">
                         <div class="widget-main-wrapper">
-                            <div class="widget-header">Angular Orientation</div>
+                            <div class="widget-header"><span class="title-icon angular-orientation-icon"><img
+                                        src="assets/icons/angular-ratation.svg"></span>Angular Orientation</div>
                             <div class="widget-content">
-                                <div class="angular-position-main-wrapper" >
-                                    <app-agular-position [title]="angleDirection" [currentIndex]="currentIndex"></app-agular-position>
+                                <div class="angular-position-main-wrapper">
+                                    <app-agular-position [title]="angleDirection"
+                                        [currentIndex]="currentIndex"></app-agular-position>
                                     <!--  <app-agular-position [title]="'Y Position'"></app-agular-position>
                                     <app-agular-position [title]="'Z Position'"></app-agular-position> -->
                                 </div>
@@ -56,7 +66,8 @@
                     </ng-container>
                     <ng-container *ngIf="n.content === 'sensor-positions'">
                         <div class="widget-main-wrapper">
-                            <div class="widget-header">Set Point Azimuth Deviation</div>
+                            <div class="widget-header"><span class="title-icon"><img
+                                        src="assets/icons/azmuth.svg"></span>Set Point Azimuth Deviation</div>
                             <div class="widget-content">
                                 <div class="antena-wrapper">
                                     <div class="antena-info-wrapper">
@@ -176,7 +187,8 @@
                     </ng-container>
                     <ng-container *ngIf="n.content === 'payloads'">
                         <div class="widget-main-wrapper">
-                            <div class="widget-header">Packet Capture</div>
+                            <div class="widget-header"><span class="title-icon"><img
+                                        src="assets/icons/pocket-capture.svg"></span>Pocket Capture</div>
                             <div class="widget-content">
                                 <img [src]="selectePacketImg">
                             </div>
@@ -184,7 +196,8 @@
                     </ng-container>
                     <ng-container *ngIf="n.content === 'topology'">
                         <div class="widget-main-wrapper">
-                            <div class="widget-header">Topology View</div>
+                            <div class="widget-header"><span class="title-icon"><img
+                                        src="../../assets/icons/topology.svg"></span> Topology View</div>
                             <div class="widget-content">
 
                                 <img [src]="selectedTopoImg">
@@ -193,7 +206,9 @@
                     </ng-container>
                     <ng-container *ngIf="n.content === 'location-sensor'">
                         <div class="widget-main-wrapper">
-                            <div class="widget-header">24/7 Periodic Antenna Alignment Scanner</div>
+                            <div class="widget-header"><span class="title-icon"><img
+                                        src="assets/icons/periodic-antena.svg"></span>24/7 Periodic Antenna Alignment
+                                Scanner</div>
                             <div class="widget-content">
                                 <div class="rader-wrapper">
                                     <div class='radar'>
@@ -212,7 +227,8 @@
                     </ng-container>
                     <ng-container *ngIf="n.content === 'map-view'">
                         <div class="widget-main-wrapper">
-                            <div class="widget-header">Map View</div>
+                            <div class="widget-header"><span class="title-icon"><img
+                                        src="../../assets/icons/map-view.svg"></span>Map View</div>
                             <div class="widget-content">
                                 <div id='map'></div>
                                 <iframe
@@ -224,7 +240,8 @@
                     </ng-container>
                     <ng-container *ngIf="n.content === 'geometric-view'">
                         <div class="widget-main-wrapper">
-                            <div class="widget-header">Geometric View</div>
+                            <div class="widget-header"><span class="title-icon"><img
+                                        src="../../assets/icons/geographic.svg"></span>Geometric View</div>
                             <div class="widget-content">
                                 <div class="geometric-wrapper">
                                     <img [src]="selectedGeo">

@@ -23,6 +23,7 @@ import { NgxView360Module } from 'ngx-view360';
     NgxView360Module
   ],
   providers: [],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

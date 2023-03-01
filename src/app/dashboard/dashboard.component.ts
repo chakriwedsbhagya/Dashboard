@@ -30,6 +30,8 @@ export class DashboardComponent {
   public chartColors: any[] | undefined;
   public chartOptions: any;
   public currentPosition: any;
+  public cameraOrbit = '45deg 55deg 2.5m';
+  public src = 'assets/SIGNAL TOWER.gltf';
   
   gaugemap:any = {};
   batteryVal1 = 30;
@@ -37,15 +39,15 @@ export class DashboardComponent {
   batteryVal3 = 10;
   batteryVal4 = 90;
   items: GridStackWidget[] = [
-    { x: 0, y: 1, w: 2, h: 5, id: `grid-1` , content: 'tower'},
-    { x: 2, y: 2, w: 3, h: 4, id: `grid-2`, content: 'battery' },
-    { x: 5, y: 3, w: 3, h: 4, id: `grid-3`, content: 'angular-positions' },
-    { x: 8, y: 3, w: 4, h: 7, id: `grid-4`, content: 'sensor-positions' },
-    { x: 2, y: 4, w: 6, h: 4, id: `grid-5`, content: 'payloads' },
-    { x: 8, y: 5, w: 4, h: 5, id: `grid-6`, content: 'topology' },
-    { x: 2, y: 7, w: 6, h: 5, id: `grid-7`, content: 'location-sensor' },
-    { x: 0, y: 6, w: 2, h: 4, id: `grid-8`, content: 'map-view' },
-    { x: 8, y: 10, w: 4, h: 4, id: `grid-9`, content: 'geometric-view' },
+    { x: 0, y: 0, w: 4, h: 5, id: `grid-1` , content: 'tower'},
+    { x: 0, y: 5, w: 4, h: 4, id: `grid-2`, content: 'battery' },
+    { x: 4, y: 5, w: 4, h: 4, id: `grid-3`, content: 'angular-positions' },
+    { x: 5, y: 4, w: 8, h: 5, id: `grid-4`, content: 'sensor-positions' },
+    { x: 0, y: 14, w: 12, h: 6, id: `grid-5`, content: 'payloads' },
+    { x: 0, y: 9, w: 4, h: 5, id: `grid-6`, content: 'topology' },
+    { x: 8, y: 9, w: 4, h: 5, id: `grid-7`, content: 'location-sensor' },
+    { x: 8, y: 5, w: 4, h: 4, id: `grid-8`, content: 'map-view' },
+    { x: 4, y: 9, w: 4, h: 5, id: `grid-9`, content: 'geometric-view' },
     
   ];
   //
@@ -56,7 +58,7 @@ export class DashboardComponent {
   private grid!: GridStack;
   public angleDirection = "X Position";
   selectePacketImg: string = `../../assets/packet0.png`;
-  selectedGeo: string = `../../assets/geo-1.jpg`;
+  selectedGeo: string = `../../assets/geo-1.png`;
   selectedTopoImg: string = `../../assets/topo1.jpg`
   constructor() {}
 
@@ -89,7 +91,7 @@ export class DashboardComponent {
     this.currentPosition = `assets/position${this.currentIndex}.png`;
     this.currentChart = `assets/chart${this.currentIndex}.png`;
     this.selectePacketImg = `assets/packet${this.currentIndex}.png`;
-    this.selectedGeo = `assets/geo-${this.currentIndex + 1}.jpg`;
+    this.selectedGeo = `assets/geo-${this.currentIndex + 1}.png`;
     this.selectedTopoImg = `assets/topo${this.currentIndex + 1}.jpg`;
   }
   generateChart() {
@@ -148,8 +150,10 @@ export class DashboardComponent {
 
   public ngAfterViewInit() {
     this.grid = GridStack.init({
-      cellHeight: 70,
+      cellHeight: 80,
       float: false,
+      disableResize: true,
+      disableDrag: true
     });
   }
 
